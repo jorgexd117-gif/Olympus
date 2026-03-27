@@ -1,0 +1,6 @@
+{
+  "graphs": {
+    "agent": "src.graph:compile_graph"
+  },
+  "env": ".env"
+}

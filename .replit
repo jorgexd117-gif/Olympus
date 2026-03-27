@@ -1,0 +1,65 @@
+modules = ["python-3.11", "nodejs-20", "web", "bash"]
+[agent]
+expertMode = true
+integrations = ["python_database:1.0.0"]
+
+[nix]
+channel = "stable-25_05"
+packages = ["postgresql"]
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Start application"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Backend API"
+
+[[workflows.workflow]]
+name = "Start application"
+author = "agent"
+
+[workflows.workflow.metadata]
+outputType = "webview"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd ui && npm run dev"
+waitForPort = 5000
+
+[[workflows.workflow]]
+name = "Backend API"
+author = "agent"
+
+[workflows.workflow.metadata]
+outputType = "console"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "uvicorn src.api_server:app --host localhost --port 8000 --reload"
+
+[[ports]]
+localPort = 5000
+externalPort = 80
+
+[[ports]]
+localPort = 5001
+externalPort = 3002
+
+[[ports]]
+localPort = 8000
+externalPort = 8000
+exposeLocalhost = true
+
+[deployment]
+deploymentTarget = "autoscale"
+run = ["bash", "start.sh"]
+build = ["bash", "-c", "pip install -r requirements.txt && cd ui && npm install && npm run build"]

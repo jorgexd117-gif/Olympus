@@ -1,0 +1,275 @@
+{
+  "info": {
+    "_postman_id": "2f1d3f67-f8e6-4a26-8bf6-875f5f0dca11",
+    "name": "LangGraph App API",
+    "description": "Collection for LangGraph FastAPI endpoints. Import into Thunder Client via Postman collection import.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/health",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "health"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "List Projects",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/projects",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "projects"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Project",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"langgraph-app\",\n  \"root_path\": \"/Users/jorgevidal/Desktop/ai-agent-project/Workspace/langgraph-app\",\n  \"description\": \"Local workspace for LangGraph API tests\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/projects",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "projects"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "List Profiles",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/profiles",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "profiles"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Profile (Agent)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"agent_key\": \"researcher\",\n  \"display_name\": \"Research Agent\",\n  \"role\": \"investigador\",\n  \"system_prompt\": \"Analiza opciones y propone decisiones con pros y contras.\",\n  \"model_name\": \"qwen2.5:latest\",\n  \"is_enabled\": true\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/profiles",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "profiles"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Profile",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"model_name\": \"qwen2.5:latest\",\n  \"is_enabled\": true\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/profiles/{{agent_key}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "profiles",
+            "{{agent_key}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Run Agent Team",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"user_prompt\": \"Define una estrategia para mejorar la app y prioriza acciones\",\n  \"project_id\": {{project_id}},\n  \"agent_keys\": [\"thought\", \"review\", \"action\"]\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/agents/team/run",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "agents",
+            "team",
+            "run"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Assistant Chat",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"message\": \"Resume el estado de mi proyecto\",\n  \"project_id\": {{project_id}}\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/assistant/chat",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "assistant",
+            "chat"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Models Available",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/models/available",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "models",
+            "available"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Orchestrator Workflows",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/orchestrator/workflows",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "orchestrator",
+            "workflows"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Run Orchestrator Workflow",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"workflow_id\": \"assistant_quick\",\n  \"project_id\": {{project_id}},\n  \"user_prompt\": \"Dame un diagnóstico rápido de mi app\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/orchestrator/run",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "orchestrator",
+            "run"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8010",
+      "type": "string"
+    },
+    {
+      "key": "project_id",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "agent_key",
+      "value": "action",
+      "type": "string"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+services:
+  mongodb:
+    image: mongo:7
+    container_name: langgraph-mongodb
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: langgraph_agent
+    volumes:
+      - mongodb_data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.runCommand({ ping: 1 }).ok"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+
+volumes:
+  mongodb_data:
